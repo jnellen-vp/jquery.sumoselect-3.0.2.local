@@ -25,6 +25,7 @@
             outputAsCSV: false,           // true to POST data as csv ( false for Html control array ie. default select )
             csvSepChar: ',',              // separation char in csv mode
             okCancelInMulti: false,       // display ok cancel buttons in desktop mode multiselect also.
+			isClickAwayOk: false, // for okCancelInMulti=true. sets whether click outside will trigger Ok or Cancel (default is cancel).
             triggerChangeCombined: true,  // im multi select mode wether to trigger change event on individual selection or combined selection.
             selectAll: false,             // to display select all button in multiselect mode.|| also select all will not be available on mobile devices.
 
@@ -294,7 +295,12 @@
                             && O.select.has(e.target).length === 0){ // ... nor a descendant of the container
                             if(!O.is_opened)return;
                             O.hideOpts();
-                            if (settings.okCancelInMulti)O._cnbtn();
+                            if (settings.okCancelInMulti){
+                              if(settings.isClickAwayOk)
+                                O._okbtn();
+                              else
+                                O._cnbtn();
+							}
                         }
                     });
 
